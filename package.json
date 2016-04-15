@@ -1,0 +1,19 @@
+{
+  "name": "touches",
+  "version": "1.0.0",
+  "description": "Touches Cathy, touches.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elfreyshira/touches.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elfreyshira/touches/issues"
+  },
+  "homepage": "https://github.com/elfreyshira/touches#readme"
+}
