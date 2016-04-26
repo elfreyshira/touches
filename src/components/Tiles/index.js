@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tile from '../Tile';
-import getOptimalTiling from '../../lib/getOptimalTiling';
+import getOptimalTiling from '../../lib/layout/getOptimalTiling';
 import _ from 'lodash';
 
 const fixtures = {

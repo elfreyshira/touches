@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import getAttackDamage from './config/getAttackDamage';
-import getAttackTileQuantity from './config/getAttackTileQuantity';
-import getAttackTileTime from './config/getAttackTileTime';
-import getTilesOnMapQuantity from './config/getTilesOnMapQuantity';
-import getTimeLength from './config/getTimeLength';
+import {getValue as getAttackDamage} from './stats/attackDamage';
+import {getValue as getAttackTileQuantity} from './stats/attackTileQuantity';
+import {getValue as getAttackTileTime} from './stats/attackTileTime';
+import {getValue as getTilesOnMapQuantity} from './stats/tilesOnMapQuantity';
+import {getValue as getTimeLength} from './stats/timeLength';
 
 function isNewTileColliding (tileList, chosenTileLocation, chosenTimeStart, chosenTimeEnd) {
   return _.some(tileList, (tileObj) => {
@@ -23,6 +23,8 @@ function isNewTileColliding (tileList, chosenTileLocation, chosenTimeStart, chos
 }
 
 function getTileFate (tileList, attackDamage, attackTileTime, tilesOnMapQuantity, timeLength) {
+  console.log('getTileFate');
+  console.log(arguments);
   const chosenTileLocation = _.random(0, tilesOnMapQuantity - 1); // choose random integer
   const chosenTimeStart = _.random(0, timeLength - attackTileTime); // choose random integer
   const chosenTimeEnd = chosenTimeStart + attackTileTime;
@@ -32,11 +34,12 @@ function getTileFate (tileList, attackDamage, attackTileTime, tilesOnMapQuantity
   }
   else {
     return {
-      type: 'ATTACK',
-      tileLocation: chosenTileLocation,
-      timeStart: chosenTimeStart,
-      timeEnd: chosenTimeEnd,
-      effectQuantity: attackDamage
+      tileId: _.uniqueId('tile_id_'), // string
+      type: 'ATTACK', // string
+      tileLocation: chosenTileLocation, // number, index value of tile layout
+      timeStart: chosenTimeStart, // number in ms
+      timeEnd: chosenTimeEnd, // number in ms
+      effectQuantity: attackDamage // number
     };
   }
 }
@@ -61,12 +64,12 @@ function getTileFate (tileList, attackDamage, attackTileTime, tilesOnMapQuantity
  *    ...
  *  ]
  */
-export default function getTileList(gameLevel, config) {
-  const attackDamage = getAttackDamage(gameLevel, config);
-  const attackTileQuantity = getAttackTileQuantity(gameLevel, config);
-  const attackTileTime = getAttackTileTime(gameLevel, config);
-  const tilesOnMapQuantity = getTilesOnMapQuantity(gameLevel, config);
-  const timeLength = getTimeLength(gameLevel, config);
+export default function getTileList(gameLevel, stats) {
+  const attackDamage = getAttackDamage(gameLevel, stats);
+  const attackTileQuantity = getAttackTileQuantity(gameLevel, stats);
+  const attackTileTime = getAttackTileTime(gameLevel, stats);
+  const tilesOnMapQuantity = getTilesOnMapQuantity(gameLevel, stats);
+  const timeLength = getTimeLength(gameLevel, stats);
 
   const tileList = [];
   _.times(attackTileQuantity, (idx) => {
