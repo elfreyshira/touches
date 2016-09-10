@@ -15,10 +15,16 @@ export default handleActions({
 
   UPGRADE_STAT (state, {payload}) {
     // const layout = _.chain(payload.tiles)
-    return {
-      tiles: payload.tiles,
-      ...state
-    };
+    
+    const statToUpgrade = payload;
+    if (_.has(state, statToUpgrade)) {
+      const newState = {...state};
+      newState[statToUpgrade]++;
+      return newState;
+    }
+    else {
+      return state;
+    }
   }
 
   // 'add todo' (state, action) {

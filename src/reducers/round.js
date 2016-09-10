@@ -17,8 +17,8 @@ export default handleActions({
   SETUP_ROUND (state, {payload}) {
     // const layout = _.chain(payload.tiles)
     return {
-      tiles: payload.tiles,
-      ...state
+      ...state,
+      tiles: payload.tiles
     };
   }
 
