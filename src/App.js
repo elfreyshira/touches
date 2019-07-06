@@ -12,7 +12,7 @@ export default React.createClass({
   getInitialState () {
     return {
       list: [],
-      show: false
+      page: 'input'
     }
   },
 
@@ -25,30 +25,47 @@ export default React.createClass({
     return false
   },
 
-  show () {
-    this.setState({
-      show: true
-    })
+  confirm () {
+    return (
+      <div>
+        Is everybody really ready?
+        <br/>
+        <button onClick={(evt) => this.setState({page: 'show'})}>Yes</button>
+        <button onClick={() => this.setState({page:'input'})}>No</button>
+
+      </div>
+    )
   },
 
   render () {
-    return (
-      <div>
-        <form onSubmit={this.doStuff}>
-          <input ref="elfrey" type="text" />
-        </form>
-        <button onClick={(evt) => this.doStuff(evt)}>Next</button>
-        <br/><br/>
-        <button onClick={() => this.show()}>Start</button>
-        {
-          this.state.show ?
+    if (this.state.page === 'input') {
+      return (
+        <div>
+          <form onSubmit={this.doStuff}>
+            <input ref="elfrey" type="text" />
+          </form>
+          <button onClick={(evt) => this.doStuff(evt)}>Next</button>
+          <br/><br/>
+
+          <button onClick={() => this.setState({page: 'confirm'})}>Start</button>
+        </div>
+      );
+    }
+    else if (this.state.page === 'confirm') {
+      return this.confirm();
+    }
+    else {
+      return (
+        <div>
+          {
             _.map(_.shuffle(this.state.list), (lol) => {
               return <p>{lol}</p>
             })
-            : null
-        }
-      </div>
-    );
+          }
+        </div>
+      )
+    }
+    
   }
 })
 

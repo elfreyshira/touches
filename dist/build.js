@@ -22327,7 +22327,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      list: [],
-	      show: false
+	      page: 'input'
 	    };
 	  },
 	  doStuff: function doStuff(evt) {
@@ -22338,46 +22338,74 @@
 	    evt.preventDefault();
 	    return false;
 	  },
-	  show: function show() {
-	    this.setState({
-	      show: true
-	    });
-	  },
-	  render: function render() {
+	  confirm: function confirm() {
 	    var _this = this;
 
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement(
-	        'form',
-	        { onSubmit: this.doStuff },
-	        _react2.default.createElement('input', { ref: 'elfrey', type: 'text' })
-	      ),
+	      'Is everybody really ready?',
+	      _react2.default.createElement('br', null),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: function onClick(evt) {
-	            return _this.doStuff(evt);
+	            return _this.setState({ page: 'show' });
 	          } },
-	        'Next'
+	        'Yes'
 	      ),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement('br', null),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: function onClick() {
-	            return _this.show();
+	            return _this.setState({ page: 'input' });
 	          } },
-	        'Start'
-	      ),
-	      this.state.show ? _lodash2.default.map(_lodash2.default.shuffle(this.state.list), function (lol) {
-	        return _react2.default.createElement(
-	          'p',
-	          null,
-	          lol
-	        );
-	      }) : null
+	        'No'
+	      )
 	    );
+	  },
+	  render: function render() {
+	    var _this2 = this;
+
+	    if (this.state.page === 'input') {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.doStuff },
+	          _react2.default.createElement('input', { ref: 'elfrey', type: 'text' })
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick(evt) {
+	              return _this2.doStuff(evt);
+	            } },
+	          'Next'
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              return _this2.setState({ page: 'confirm' });
+	            } },
+	          'Start'
+	        )
+	      );
+	    } else if (this.state.page === 'confirm') {
+	      return this.confirm();
+	    } else {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _lodash2.default.map(_lodash2.default.shuffle(this.state.list), function (lol) {
+	          return _react2.default.createElement(
+	            'p',
+	            null,
+	            lol
+	          );
+	        })
+	      );
+	    }
 	  }
 	});
 
