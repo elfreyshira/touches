@@ -22359,8 +22359,10 @@
 	        { onClick: function onClick(evt) {
 	            return _this.doStuff(evt);
 	          } },
-	        'Done'
+	        'Next'
 	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement('br', null),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: function onClick() {
