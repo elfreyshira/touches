@@ -37,7 +37,8 @@ export default React.createClass({
         <form onSubmit={this.doStuff}>
           <input ref="elfrey" type="text" />
         </form>
-        <button onClick={() => this.show()}>Done</button>
+        <button onClick={(evt) => this.doStuff(evt)}>Done</button>
+        <button onClick={() => this.show()}>Start</button>
         {
           this.state.show ?
             _.map(_.shuffle(this.state.list), (lol) => {
